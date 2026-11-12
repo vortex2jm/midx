@@ -16,3 +16,8 @@ sha2 = "0.10"
 thiserror = "2.0"
 toml = "0.8"
 walkdir = "2.5"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
