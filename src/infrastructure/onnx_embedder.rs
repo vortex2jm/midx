@@ -18,8 +18,8 @@ impl OnnxEmbedder {
         let options = TextInitOptions::new(embedding_model)
             .with_show_download_progress(show_download_progress);
 
-        let model = TextEmbedding::try_new(options)
-            .map_err(|err| MidxError::Embedder(err.to_string()))?;
+        let model =
+            TextEmbedding::try_new(options).map_err(|err| MidxError::Embedder(err.to_string()))?;
 
         Ok(Self {
             model: Mutex::new(model),
@@ -85,4 +85,3 @@ fn parse_embedding_model(name: &str) -> Result<EmbeddingModel, MidxError> {
         ))),
     }
 }
-

@@ -30,4 +30,3 @@ pub enum MidxError {
     #[error("search query cannot be empty or whitespace-only")]
     EmptyQuery,
 }
-

@@ -52,8 +52,9 @@ impl LoadedConfig {
             let candidate = ancestor.join(CONFIG_FILE_NAME);
             if candidate.is_file() {
                 let raw = fs::read_to_string(&candidate)?;
-                let config: Config = toml::from_str(&raw)
-                    .map_err(|err| MidxError::Config(format!("invalid {CONFIG_FILE_NAME}: {err}")))?;
+                let config: Config = toml::from_str(&raw).map_err(|err| {
+                    MidxError::Config(format!("invalid {CONFIG_FILE_NAME}: {err}"))
+                })?;
 
                 if config.batch_size == 0 {
                     return Err(MidxError::Config(
@@ -128,4 +129,3 @@ pub fn ensure_gitignore_entry(target_dir: &Path) -> Result<bool, MidxError> {
     fs::write(&gitignore_path, updated)?;
     Ok(true)
 }
-

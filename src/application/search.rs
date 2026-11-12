@@ -76,4 +76,3 @@ where
         Ok(top_k(&query_embedding, &chunks, limit))
     }
 }
-

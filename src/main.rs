@@ -64,7 +64,11 @@ fn cmd_init(path: PathBuf) -> Result<()> {
     if config_created {
         println!("  {} {}", "created".cyan(), config_path.display());
     } else {
-        println!("  {} {} (kept existing)", "found".yellow(), config_path.display());
+        println!(
+            "  {} {} (kept existing)",
+            "found".yellow(),
+            config_path.display()
+        );
     }
     println!("  {} {}", "database".cyan(), db_path.display());
     if gitignore_updated {

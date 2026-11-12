@@ -65,12 +65,11 @@ impl FsScanner {
     fn read_mtime_millis(path: &Path) -> Result<i64, MidxError> {
         let meta = fs::metadata(path)?;
         let modified = meta.modified()?;
-        let duration = modified
-            .duration_since(UNIX_EPOCH)
-            .map_err(|err| MidxError::Scanner(format!("invalid mtime for '{}': {err}", path.display())))?;
-        i64::try_from(duration.as_millis()).map_err(|_| {
-            MidxError::Scanner(format!("mtime overflow for '{}'", path.display()))
-        })
+        let duration = modified.duration_since(UNIX_EPOCH).map_err(|err| {
+            MidxError::Scanner(format!("invalid mtime for '{}': {err}", path.display()))
+        })?;
+        i64::try_from(duration.as_millis())
+            .map_err(|_| MidxError::Scanner(format!("mtime overflow for '{}'", path.display())))
     }
 }
 
@@ -119,4 +118,3 @@ impl FileScanner for FsScanner {
         Ok(fs::read_to_string(full_path)?)
     }
 }
-

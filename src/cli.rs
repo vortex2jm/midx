@@ -47,4 +47,3 @@ pub enum Commands {
     /// Exibe estatisticas do indice e modelo configurado
     Status,
 }
-

@@ -45,4 +45,3 @@ pub trait NoteRepository {
     /// Returns aggregate index statistics.
     fn get_stats(&self) -> Result<IndexStats, MidxError>;
 }
-

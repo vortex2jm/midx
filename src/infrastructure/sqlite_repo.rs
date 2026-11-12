@@ -105,8 +105,11 @@ impl NoteRepository for SqliteStore {
 
         let indexed_at = current_unix_seconds();
 
-        tx.execute("DELETE FROM chunks WHERE file_path = ?1", params![file.path])
-            .map_err(map_sqlite_err)?;
+        tx.execute(
+            "DELETE FROM chunks WHERE file_path = ?1",
+            params![file.path],
+        )
+        .map_err(map_sqlite_err)?;
 
         tx.execute(
             "INSERT INTO files (path, hash, mtime, indexed_at)
@@ -240,4 +243,3 @@ fn current_unix_seconds() -> i64 {
 fn map_sqlite_err(err: rusqlite::Error) -> MidxError {
     MidxError::Repository(err.to_string())
 }
-

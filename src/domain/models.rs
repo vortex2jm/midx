@@ -71,7 +71,10 @@ impl Embedding {
             return Err(MidxError::InvalidEmbeddingBytes(bytes.len()));
         }
 
-        let values = chunks.iter().map(|&chunk| f32::from_le_bytes(chunk)).collect();
+        let values = chunks
+            .iter()
+            .map(|&chunk| f32::from_le_bytes(chunk))
+            .collect();
 
         Ok(Self(values))
     }
@@ -147,4 +150,3 @@ pub struct IndexStats {
     pub total_chunks: usize,
     pub db_size_bytes: u64,
 }
-

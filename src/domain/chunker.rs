@@ -127,7 +127,10 @@ impl MarkdownChunker {
                     block_line_start.get_or_insert(event_line);
                     block_buf.push_str(if checked { "[x] " } else { "[ ] " });
                 }
-                Event::Text(text) | Event::Code(text) | Event::Html(text) | Event::InlineHtml(text) => {
+                Event::Text(text)
+                | Event::Code(text)
+                | Event::Html(text)
+                | Event::InlineHtml(text) => {
                     block_line_start.get_or_insert(event_line);
                     block_buf.push_str(&text);
                 }
@@ -298,7 +301,9 @@ fn compute_line_starts(text: &str) -> Vec<usize> {
 }
 
 fn line_of_offset(line_starts: &[usize], byte_offset: usize) -> usize {
-    line_starts.partition_point(|&start| start <= byte_offset).max(1)
+    line_starts
+        .partition_point(|&start| start <= byte_offset)
+        .max(1)
 }
 
 fn heading_level_num(level: HeadingLevel) -> u8 {
@@ -348,7 +353,10 @@ Nova secao H2 limpa o H3.
         assert_eq!(chunks[0].line_start, 2);
         assert!(chunks[0].content.contains("Introducao na linha 2."));
 
-        assert_eq!(chunks[1].heading_context, "# Arquitetura > ## Ports & Adapters");
+        assert_eq!(
+            chunks[1].heading_context,
+            "# Arquitetura > ## Ports & Adapters"
+        );
         assert_eq!(chunks[1].line_start, 5);
         assert!(chunks[1].content.contains("Detalhes da porta na linha 5."));
 
@@ -357,7 +365,11 @@ Nova secao H2 limpa o H3.
             "# Arquitetura > ## Ports & Adapters > ### NoteRepository"
         );
         assert_eq!(chunks[2].line_start, 8);
-        assert!(chunks[2].content.contains("Persistencia SQLite na linha 8."));
+        assert!(
+            chunks[2]
+                .content
+                .contains("Persistencia SQLite na linha 8.")
+        );
 
         assert_eq!(chunks[3].heading_context, "# Arquitetura > ## Pipeline");
         assert_eq!(chunks[3].line_start, 11);
@@ -423,4 +435,3 @@ echo hello
         assert_eq!(chunks[1].line_start, 4);
     }
 }
-

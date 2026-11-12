@@ -123,4 +123,3 @@ mod tests {
         assert!(hits[0].score > hits[1].score);
     }
 }
-

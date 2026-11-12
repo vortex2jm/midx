@@ -69,8 +69,7 @@ where
         let scanned_files = self.scanner.scan(root)?;
         let indexed_files = self.repo.get_indexed_files()?;
 
-        let scanned_paths: HashSet<&str> =
-            scanned_files.iter().map(|f| f.path.as_str()).collect();
+        let scanned_paths: HashSet<&str> = scanned_files.iter().map(|f| f.path.as_str()).collect();
 
         let deleted_paths: Vec<String> = indexed_files
             .keys()
@@ -469,4 +468,3 @@ mod tests {
         assert_eq!(summary4.chunks_indexed, 4);
     }
 }
-
